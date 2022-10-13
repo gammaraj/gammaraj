@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tag {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(200)
+  userid Int?
+  user   user?  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userid2")
+  task   task[]
+
+  @@index([userid], map: "userid2_idx")
+}
+
+model task {
+  id      Int       @id @default(autoincrement())
+  name    String    @db.VarChar(45)
+  status  String?   @default("Not Started") @db.VarChar(45)
+  duedate DateTime? @db.DateTime(0)
+  tagid   Int
+  userid  Int
+  tag     tag       @relation(fields: [tagid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tagid")
+  user    user      @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userid")
+
+  @@index([tagid], map: "tagid_idx")
+  @@index([userid], map: "userid_idx")
+}
+
+model user {
+  id     Int     @unique(map: "id_UNIQUE") @default(autoincrement())
+  first  String  @db.VarChar(45)
+  middle String? @db.VarChar(45)
+  last   String  @db.VarChar(45)
+  tag    tag[]
+  task   task[]
+
+  @@id([id, first, last])
+}
