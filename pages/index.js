@@ -1,6 +1,7 @@
 import Search from '../components/search'
 import Task from '../components/Task'
 import prisma from '../lib/prisma'
+import Login from '../components/login'
 
 export default function Home({ tasks }) {
   return (

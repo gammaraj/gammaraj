@@ -1,28 +1,31 @@
+import { SessionProvider } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Login from './login'
+import Link from 'next/link'
 
 export default function Layout({ children }) {
   return (
-    <>
+    <SessionProvider>
       <Head>
         <title>Boxy</title>
         <meta name="description" content="Boxy" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
       <nav className='container'>
-        <hgroup>
+        <Link href="/">
+          <a>
           <Image
-            src="/boxy-logo.png"
-            alt="Picture of the author"
+            src="/images/boxy-logo.png"
+            alt="logo"
             width={120}
             height={100}
-          />
-        </hgroup>
+          /></a>
+        </Link>
         <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#" role="button" className="outline">Signup/Login</a></li>
-        </ul>
+          <li><Login/></li>
+       </ul>
       </nav>
       <hr></hr>
       <br></br>
@@ -35,6 +38,6 @@ export default function Layout({ children }) {
       <footer className="container">
         <small><em>© Boxy - Get Shit Done</em></small>
       </footer>
-    </>
+    </SessionProvider>
   )
 }
