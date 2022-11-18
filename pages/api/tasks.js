@@ -9,7 +9,14 @@ export default async function handler(req, res) {
         include: {
           tag: true,
         },
+        orderBy: [
+          {
+            name: 'asc',
+          },
+        ],
       })
+
+      console.log(data);
     
       return res.status(200).json({ data })
     } catch (err) {

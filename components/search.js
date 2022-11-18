@@ -1,6 +1,7 @@
-
+import { Router, useRouter } from "next/router"
 
 export default function Search() {
+  const router = useRouter();
   // Handles the submit event on form submit.
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
@@ -37,6 +38,9 @@ export default function Search() {
     // If server returns the name submitted, that means the form works.
     const result = await response.json()
 
+    // redirect to home page - show updated list of tasks
+    router.push("/");
+    
   }
   return (
     // We pass the event to the handleSubmit() function on submit.

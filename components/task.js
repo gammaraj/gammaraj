@@ -1,6 +1,6 @@
 export default function Task({ task }) {
     const { id, name, status, tag} = task
-  
+
     return (
       <div
         className="grid"
